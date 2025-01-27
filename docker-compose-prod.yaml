@@ -1,0 +1,73 @@
+services:
+  elasticsearch:
+    image: elasticsearch:8.16.3
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+    networks:
+      - reverseproxy_nw
+  
+  api: &api
+    build:
+      context: .
+      dockerfile: ./docker/prod/django/Dockerfile
+    command: /start
+    image: kt-medium-api
+    volumes:
+      - static_volume:/app/staticfiles
+      - media_volume:/app/mediafiles
+    env_file:
+      - ./.envs/.prod/.django
+      - ./.envs/.prod/.postgres
+    depends_on:
+      - postgres
+      - redis
+      - elasticsearch
+    networks:
+      - reverseproxy_nw
+    
+  postgres:
+    build:
+      context: .
+      dockerfile: ./docker/prod/postgres/Dockerfile
+    image: kt-medium-pg
+    volumes:
+      - prod_postgres_data:/var/lib/postgresql/data
+      - prod_postgres_data_backups:/backups
+    env_file:
+      - ./.envs/.prod/.postgres
+    networks:
+      - reverseproxy_nw
+    
+  redis:
+    image: redis:7-alpine
+    networks:
+      - reverseproxy_nw
+    
+  celery_worker:
+    <<: *api
+    image: kt-medium-worker
+    command: /start-celeryworker
+    networks:
+      - reverseproxy_nw
+  
+  flower:
+    <<: *api
+    image: kt-medium-flower
+    command: /start-flower
+    volumes:
+      - flower_data:/data
+    networks:
+      - reverseproxy_nw
+
+networks:
+  reverseproxy_nw:
+    external: true
+
+volumes:
+  static_volume: {}
+  media_volume: {}
+  prod_postgres_data: {}
+  prod_postgres_data_backups: {}
+  flower_data: {}
