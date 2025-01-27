@@ -10,7 +10,7 @@ CSRF_TRSUTED_ORIGINS = ["http://localhost:8080"]
 
 EMAIL_BACKEND = "djcelery_email_backends.CeleryEmailBackend"
 EMAIL_HOST = env("EMAIL_HOST", default="mailhog")
-EMAIL_PORT = env("EMAIL_PORT")
+EMAIL_PORT = env("EMAIL_PORT", default="1025")
 DEFAULT_FROM_EMAIL = "support@kosamtech.dev"
-DOMAIN = env("DOMAIN")
+DOMAIN = env("DOMAIN", default="localhost:8080")
 SITE_NAME = "Medium Clone"

@@ -46,26 +46,27 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "corheaders.middleware.CorsMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    # "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "medium.urls"
 
 TEMPLATES = [
     {
-        "BACKEND": "django.template.backends.django.DjangTemplates",
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
-                "django.template.context_processorss.debug",
+                "django.template.context_processors.debug",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages"
@@ -78,8 +79,8 @@ WSGI_APPLICATION = "medium.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backend.sqlite3",
-        "NAME": "db"
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "db.sqlite3"
     }
 }
 
@@ -87,7 +88,7 @@ DATABASES = {
 
 PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.Argon2PasswordHasher",
-    "django.contrrib.auth.hashers.PBKDF2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2PasswordHasher",
     "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
     "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
     "django.contrib.auth.hashers.ScryptPasswordHasher",
@@ -145,7 +146,7 @@ CORS_URLS_REGEX = r"^api/.*$"
 
 # AUTH_USER_MODEL = "users.User"
 
-CELERY_BROKER_URL = env("CELERY_BROKER")
+CELERY_BROKER_URL = env("CELERY_BROKER", default="redis://redis/6379/0")
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
@@ -173,7 +174,7 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "ROTATE_REFESH_TOKENS": True,
-    "SIGNING_KEY": env("SIGNING_KEY"),
+    "SIGNING_KEY": env("SIGNING_KEY", default="unsecure-signin-key"),
     "USER_ID_FIELD": "id",
     "USER_ID_CLAIM": "user_id",
 }
@@ -182,12 +183,12 @@ REST_AUTH = {
     "USE_JWT": True,
     "JWT_AUTH_COOKIE": "authors-access-token",
     "JWT_AUTH_REFRESH_COOKIE": "authors-refresh-token",
-    # "REGISTER_SERIALIZER": "users.serializers.CustomRegisterSerializer",
+    "REGISTER_SERIALIZER": "users.serializers.CustomRegisterSerializer",
 }
 
 AUTHENTICATION_BACKENDS = [
     "allauth.account.auth_backends.AuthenticationBackend",
-    "django.contrib.auth.backend.ModelBackend",
+    "django.contrib.auth.backends.ModelBackend",
 ]
 
 ACCOUNT_AUTHENTICATION_METHOD = "email"
@@ -198,11 +199,11 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USERNAME_REQUIRED = False
 
-# ELASTICSEARCH_DSL = {
-#     "default": {
-#         "hosts": "elasticsearch:9200"
-#     }
-# }
+ELASTICSEARCH_DSL = {
+    "default": {
+        "hosts": "elasticsearch:9200"
+    }
+}
 
 LOGGING = {
     "version": 1,
