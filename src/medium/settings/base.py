@@ -40,7 +40,7 @@ THIRD_PARTY_APPS = [
     "django_elasticsearch_dsl_drf",
 ]
 
-LOCAL_APPS = ["users"]
+LOCAL_APPS = ["users", "common"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
