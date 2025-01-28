@@ -40,7 +40,7 @@ THIRD_PARTY_APPS = [
     "django_elasticsearch_dsl_drf",
 ]
 
-LOCAL_APPS = []
+LOCAL_APPS = ["users"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -144,7 +144,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_URLS_REGEX = r"^api/.*$"
 
-# AUTH_USER_MODEL = "users.User"
+AUTH_USER_MODEL = "users.User"
 
 CELERY_BROKER_URL = env("CELERY_BROKER", default="redis://redis/6379/0")
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
