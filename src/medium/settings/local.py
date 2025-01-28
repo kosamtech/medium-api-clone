@@ -6,11 +6,11 @@ SECRET_KEY = env("DAJNGO_SECRET_KEY", default="django-insecure-&d58bbs!&m^d5u7wb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-CSRF_TRSUTED_ORIGINS = ["http://localhost:8080"]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:8000"]
 
 EMAIL_BACKEND = "djcelery_email_backends.CeleryEmailBackend"
 EMAIL_HOST = env("EMAIL_HOST", default="mailhog")
 EMAIL_PORT = env("EMAIL_PORT", default="1025")
 DEFAULT_FROM_EMAIL = "support@kosamtech.dev"
-DOMAIN = env("DOMAIN", default="localhost:8080")
+DOMAIN = env("DOMAIN", default="localhost:8000")
 SITE_NAME = "Medium Clone"
