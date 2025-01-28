@@ -1,4 +1,4 @@
-from .base import * #noqa
+from .base import *  # noqa
 
 ADMINS = [("Kosam Omollo", "kosamdjango@gmail.com")]
 
@@ -23,13 +23,19 @@ CSRF_COOKIE_SECURE = True
 
 SECURE_HSTS_SECONDS = 518400
 
-SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool("DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS", default=True)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool(
+    "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS", default=True
+)
 
-SECURE_CONTENT_TYPE_NOSNIFF = env.bool("DJANGO_SECURE_CONTENT_TYPE_NOSNIFF", default=True)
+SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
+    "DJANGO_SECURE_CONTENT_TYPE_NOSNIFF", default=True
+)
 
 STATICFILES_STORAGE = "whitenoise.storages.CompressedManifestStaticFileStorage"
 
-DEFAULT_FROM_EMAIL = env("DJANGO_DEFAULT_FROM_EMAIL", default="Medium Support <support@kosamtech.com>")
+DEFAULT_FROM_EMAIL = env(
+    "DJANGO_DEFAULT_FROM_EMAIL", default="Medium Support <support@kosamtech.com>"
+)
 
 SITE_NAME = "Medium Clone"
 
@@ -64,21 +70,20 @@ LOGGING = {
         "console": {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
-            "formatter": "verbose"
-        }
+            "formatter": "verbose",
+        },
     },
     "root": {"level": "INFO", "handlers": ["console"]},
     "loggers": {
         "django.request": {
             "handlers": ["mail_admins"],
             "level": "ERROR",
-            "propagate": True
+            "propagate": True,
         },
         "django.security.DisallowedHost": {
             "handlers": ["console", "mail_admins"],
             "level": "ERROR",
             "propagate": True,
-        }
-    }
+        },
+    },
 }
-

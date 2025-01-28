@@ -19,7 +19,7 @@ class UserAdmin(BaseUserAdmin):
         "first_name",
         "last_name",
         "is_staff",
-        "is_active"
+        "is_active",
     ]
 
     list_display_links = ["pkid", "id", "email"]
@@ -37,21 +37,22 @@ class UserAdmin(BaseUserAdmin):
                     "is_staff",
                     "is_superuser",
                     "groups",
-                    "user_permissions"
+                    "user_permissions",
                 )
-            }
+            },
         ),
-        (_("Important Dates"), { "fields": ("last_login", "date_joined") }),
+        (_("Important Dates"), {"fields": ("last_login", "date_joined")}),
     )
 
     add_fieldsets = (
         None,
         {
             "classes": ("wide",),
-            "fields": ("email", "first_name", "last_name", "password1", "password2")
-        }
+            "fields": ("email", "first_name", "last_name", "password1", "password2"),
+        },
     )
 
     search_fields = ["email", "first_name", "last_name"]
+
 
 admin.site.register(User, UserAdmin)

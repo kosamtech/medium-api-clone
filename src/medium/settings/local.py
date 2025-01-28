@@ -1,7 +1,10 @@
-from .base import * #noqa
+from .base import *  # noqa
 
 # # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("DAJNGO_SECRET_KEY", default="django-insecure-&d58bbs!&m^d5u7wb-@q+%-l3flmy1teogvgmxsx1lmgcr#t!w")
+SECRET_KEY = env(
+    "DAJNGO_SECRET_KEY",
+    default="django-insecure-&d58bbs!&m^d5u7wb-@q+%-l3flmy1teogvgmxsx1lmgcr#t!w",
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
