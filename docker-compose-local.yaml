@@ -14,7 +14,7 @@ services:
       dockerfile: ./docker/local/django/Dockerfile
     command: /start
     volumes:
-      - .:/app:z
+      - ./src:/app:z
       - static_volume:/app/staticfiles
       - media_volume:/app/mediafiles
     expose:
@@ -61,7 +61,7 @@ services:
       dockerfile: ./docker/local/django/Dockerfile
     command: /start-celeryworker
     volumes:
-      - .:/app
+      - ./src:/app
     env_file:
       - ./.envs/.local/.django
       - ./.envs/.local/.postgres
