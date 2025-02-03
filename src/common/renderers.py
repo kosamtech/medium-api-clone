@@ -21,12 +21,14 @@ class MediumJSONRenderer(JSONRenderer):
         "DELETE": "deleted",
     }
     SUCCESS = "success"
+    ERROR = "error"
 
     def render(self, data, accepted_media_type=None, renderer_context=None):
         resp = self._create_response(data, renderer_context)
         return super().render(resp, accepted_media_type, renderer_context)
 
     def _create_response(self, data, context):
+        status, msg = self.SUCCESS, None
         if context is None:
             logger.error("No context was provided to the renderer")
             status = "error"
@@ -42,20 +44,26 @@ class MediumJSONRenderer(JSONRenderer):
                 model = ""
             method = context["request"]._request.method
 
-            if isinstance(data, dict):
-                status = data.get("status", MediumJSONRenderer.SUCCESS)
-            else:
-                status = MediumJSONRenderer.SUCCESS
+            status_code = context["response"].status_code
+            if status_code not in range(200, 300):
+                status = self.ERROR
 
-            if status != MediumJSONRenderer.SUCCESS:
-                return data
-
-            if isinstance(data, Mapping) and data.get("message") is not None:
-                msg = data.pop("message")
+            if isinstance(data, Mapping):
+                if data.get("message"):
+                    msg = data.pop("message")
+                else:
+                    msg = self._format_message(status, model, method)
             else:
-                msg = "{} {}".format(
-                    model, self.METHODS.get(method, f"{method} completed")
-                )
+                msg = self._format_message(status, model, method)
 
         response = {"status": status, "message": msg, "data": data}
         return response
+
+    def _format_message(self, status, model, method):
+        if status == self.SUCCESS:
+            msg = "{} {}".format(model, self.METHODS.get(method, f"{method} completed"))
+        else:
+            msg = "{} {}".format(
+                model, "not " + self.METHODS.get(method, f"{method} not completed")
+            )
+        return msg
