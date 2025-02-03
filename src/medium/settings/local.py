@@ -11,7 +11,7 @@ DEBUG = True
 
 CSRF_TRUSTED_ORIGINS = ["http://localhost:8000", "http://127.0.0.0:8000"]
 
-EMAIL_BACKEND = "djcelery_email_backends.CeleryEmailBackend"
+EMAIL_BACKEND = "djcelery_email.backends.CeleryEmailBackend"
 EMAIL_HOST = env("EMAIL_HOST", default="mailhog")
 EMAIL_PORT = env("EMAIL_PORT", default="1025")
 DEFAULT_FROM_EMAIL = "support@kosamtech.dev"
