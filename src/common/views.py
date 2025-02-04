@@ -11,6 +11,7 @@ class GenericModelViewSet(ModelViewSet):
     renderer_classes = (MediumJSONRenderer,)
     filter_backends = (DjangoFilterBackend, filters.OrderingFilter)
     permission_classes = [IsAuthenticated]
+    lookup_field = "id"
     action_serializers = {}
     pagination_class = MediumPagination
 
