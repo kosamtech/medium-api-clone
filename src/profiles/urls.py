@@ -7,6 +7,3 @@ router.register(r"", ProfileView, basename="profile")
 
 
 urlpatterns = [] + router.urls
-
-
-print(urlpatterns)
