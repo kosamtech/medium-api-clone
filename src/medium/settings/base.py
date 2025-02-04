@@ -48,6 +48,7 @@ LOCAL_APPS = [
     "bookmarks",
     "ratings",
     "comments",
+    "search",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

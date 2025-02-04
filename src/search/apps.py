@@ -2,10 +2,7 @@ from django.apps import AppConfig
 from django.utils.translation import gettext_lazy as _
 
 
-class ArticlesConfig(AppConfig):
+class SearchConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "articles"
-    verbose_name = _("Articles")
-
-    def ready(self):
-        import search.signals # noqa
+    name = "search"
+    verbose_name = _("Search")

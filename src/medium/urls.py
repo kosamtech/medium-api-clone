@@ -39,6 +39,7 @@ urlpatterns = [
     path(f"{API_VERSION}/ratings/", include("ratings.urls")),
     path(f"{API_VERSION}/bookmarks/", include("bookmarks.urls")),
     path(f"{API_VERSION}/comments/", include("comments.urls")),
+    path(f"{API_VERSION}/elastic/", include("search.urls")),
 ]
 
 admin.site.site_header = "Medium API Admin"
