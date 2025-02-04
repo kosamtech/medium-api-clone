@@ -34,6 +34,11 @@ urlpatterns = [
     ),
     path(f"{API_VERSION}/auth/", include("dj_rest_auth.urls")),
     path(f"{API_VERSION}/profiles/", include("profiles.urls")),
+    path(f"{API_VERSION}/articles/", include("articles.urls.articleurls")),
+    path(f"{API_VERSION}/claps/", include("articles.urls.clapurls")),
+    path(f"{API_VERSION}/ratings/", include("ratings.urls")),
+    path(f"{API_VERSION}/bookmarks/", include("bookmarks.urls")),
+    path(f"{API_VERSION}/comments/", include("comments.urls")),
 ]
 
 admin.site.site_header = "Medium API Admin"
