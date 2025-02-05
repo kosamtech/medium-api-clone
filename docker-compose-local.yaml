@@ -1,6 +1,6 @@
 services:
   elasticsearch:
-    image: elasticsearch:8.16.3
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.27
     environment:
       - discovery.type=single-node
     ports:
