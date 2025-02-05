@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: server
+  template:
+    metadata:
+      labels:
+        component: server
+    spec:
+      containers:
+        - name: server
+          image: kosamtech/medium-api:latest
+          command: ["/bin/sh", "-c"]
+          args: ["/start"]
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: api-server-env
+    

@@ -1,0 +1,65 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-service
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /api/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: server-cluster-ip-service
+                port:
+                  number: 8000
+          - path: /supersecret/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: server-cluster-ip-service
+                port:
+                  number: 8000
+          - path: /redoc/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: server-cluster-ip-service
+                port:
+                  number: 8000
+          - path: /static/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: server-cluster-ip-service
+                port:
+                  number: 8000
+          - path: /media/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: server-cluster-ip-service
+                port:
+                  number: 8000
+          - path: /flower/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: flower-cluster-ip-service
+                port:
+                  number: 5555
+          - path: /mailhog/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: mailhog-cluster-ip-service
+                port:
+                  number: 8025
+          - path: /es/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: es-cluster-ip-service
+                port:
+                  number: 9200
