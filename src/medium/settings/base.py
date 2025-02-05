@@ -208,7 +208,7 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USERNAME_REQUIRED = False
 
-ELASTICSEARCH_DSL = {"default": {"hosts": "elasticsearch:9200"}}
+ELASTICSEARCH_DSL = {"default": {"hosts": env("ELASTICSEARCH_URL", default="localhost:9200")}}
 
 LOGGING = {
     "version": 1,
