@@ -15,17 +15,17 @@ class ArticleDocument(Document):
 
     class Index:
         name = "articles"
-        settings = {"number_of_shards": 1, "number of_replicas": 0}
+        settings = {"number_of_shards": 1, "number_of_replicas": 0}
 
     class Django:
         model = Article
         fields = ["created_at"]
 
     def prepare_author_first_name(self, instance):
-        return instance.author.first__name
+        return instance.author.first_name
 
     def prepare_author_last_name(self, instance):
-        return instance.author.last__name
+        return instance.author.last_name
 
     def prepare_tags(self, instance):
         return [tag.name for tag in instance.tags.all()]
