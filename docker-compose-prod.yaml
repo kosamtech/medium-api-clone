@@ -1,8 +1,11 @@
 services:
   elasticsearch:
-    image: elasticsearch:8.16.3
+    build:
+      context: ./docker/prod/elasticsearch
+      dockerfile: Dockerfile
     environment:
       - discovery.type=single-node
+      - xpack.security.enabled=false
     ports:
       - "9200:9200"
     networks:
